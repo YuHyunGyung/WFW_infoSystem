@@ -1,7 +1,7 @@
 package kr.ac.hansung.cse.controller;
 
-import kr.ac.hansung.cse.model.Offer;
-import kr.ac.hansung.cse.service.OfferService;
+import kr.ac.hansung.cse.model.Course;
+import kr.ac.hansung.cse.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,34 +14,35 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class OfferController {
+public class CourseController {
     // Controller -> Service -> Dao
-
     @Autowired
-    private OfferService offerService; //offerService를 통해서 함수 호출
+    private CourseService courseService; //offerService를 통해서 함수 호출
 
-    @GetMapping("/offers")
-    public String showOffers(Model model) {
-        List<Offer> offers = offerService.getAllOffers(); //table의 모든 레코드 가져오기
-        model.addAttribute("id_offers", offers);
+    @GetMapping("/courses")
+    public String showCourses(Model model) {
+        List<Course> courses = courseService.getAllCourses(); //table의 모든 레코드 가져오기
+        model.addAttribute("id_courses", courses);
 
-        return "offers";
+        return "courses";
     }
 
-    @GetMapping("/createOffer")
-    public String createOffer(Model model) {
+
+    @GetMapping("/createCourse")
+    public String createCourse(Model model) {
         //새로운 bean을 만들어서 모델에 넣어주고, view쪽으로 넘겨줌
-        model.addAttribute("offer", new Offer());
+        model.addAttribute("course", new Course());
 
-        return "createOffer";
+        return "createCourse";
     }
 
-    //offer는 model에 자동저장됨
+
+    //course는 model에 자동저장됨
     //Valid = 사용자가 입력한 값을 검증, 검증의 제약조건은 우리가 입력해야함
     //BindingResult = 검증한 결과를 여기에 넣어달라
     @PostMapping("/doCreate")
-    public String doCreate(Model model, @Valid Offer offer, BindingResult result) {
-        System.out.println(offer);
+    public String doCreate(Model model, @Valid Course course, BindingResult result) {
+        System.out.println(course);
 
         //에러가 있을경우
         if(result.hasErrors()) {
@@ -54,11 +55,11 @@ public class OfferController {
             }
 
             System.out.println("==================================");
-            return "createOffer";
+            return "createCourse";
         }
 
         //Controller -> Service 호출, Service -> Dao 통해서 저장
-        offerService.insert(offer);
-        return "offerCreated";
+        courseService.insert(course);
+        return "courseCreated";
     }
 }

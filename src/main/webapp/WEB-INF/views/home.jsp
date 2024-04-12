@@ -7,20 +7,32 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Home</title>
   </head>
   <body>
-    <p><a href="${pageContext.request.contextPath}/offers"> Show current offers</a></p>
-    <p><a href="${pageContext.request.contextPath}/createOffer"> Add a new offer </a></p>
 
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-      <a href="javascript:document.getElementById('logout').submit()">Logout</a>
-    </c:if>
-    <form id="logout" action="<c:url value="/logout" />" method="post">
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    </form>
+  <c:if test="${pageContext.request.userPrincipal.name == null}">
+    <button type="submit" onclick="location.href='${pageContext.request.contextPath}/login'"> Login </button>
+  </c:if>
+
+  <c:if test="${pageContext.request.userPrincipal.name != null}">
+    <button type="submit"> Logout </button>
+  </c:if>
+  <form id="logout" action="<c:url value="/logout" />" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+  </form>
+
+  <p><a href="${pageContext.request.contextPath}/courses"> 학년별 이수 학점 조회 </a></p>
+  <p><a href="${pageContext.request.contextPath}/createCourse"> 수강 신청하기 </a></p>
+  <p><a href="${pageContext.request.contextPath}/courses"> 수강 신청 조회 </a></p>
+
+
+
+
+
   </body>
 </html>

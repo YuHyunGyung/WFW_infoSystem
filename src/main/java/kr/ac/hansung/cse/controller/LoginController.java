@@ -11,8 +11,6 @@ public class LoginController {
     public String showLogin(@RequestParam(value="error", required = false) String error,
                             @RequestParam(value="logout", required = false) String logout,
                             Model model) {
-
-
         if(error != null) {
             model.addAttribute("errorMsg", "Invalid username and password");
         }

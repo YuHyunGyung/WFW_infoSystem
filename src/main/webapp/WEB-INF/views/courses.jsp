@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Offers</title>
+    <title>Show Courses</title>
 </head>
 <body>
-    <c:forEach var="offer" items="${id_offers}" >
-        <p> <c:out value="${offer}"> </c:out> </p>
+    <c:forEach var="course" items="${id_courses}" >
+        <p> <c:out value="${course}"> </c:out> </p>
     </c:forEach>
 </body>
 </html>
